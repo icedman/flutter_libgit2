@@ -4,6 +4,8 @@ project(api LANGUAGES CXX C)
 string(APPEND CMAKE_CXX_FLAGS " -std=gnu++11")
 set (CMAKE_CXX_STANDARD 11)
 
+add_definitions(-fPIC)
+
 add_library(api
   SHARED
   ./api.cpp
@@ -19,7 +21,7 @@ if (CMAKE_SYSTEM_NAME STREQUAL "Android")
 
 if (DEFINED ENV{BUILD_SSL})
 add_subdirectory(./openssl)
-target_link_libraries(api PRIVATE ssl crypto)
+target_link_libraries(api PRIVATE crypto ssl)
 endif()
 
 if (DEFINED ENV{BUILD_SSH2} OR DEFINED ENV{BUILD_GIT2})
@@ -56,7 +58,7 @@ set(BUILD_TESTING OFF)
 set(BUILD_EXAMPLES OFF)
 
 add_subdirectory(./libssh2)
-target_link_libraries(api PRIVATE ssl crypto libssh2)
+target_link_libraries(api PRIVATE crypto ssl libssh2)
 endif()
 
 
@@ -65,6 +67,7 @@ if (DEFINED ENV{BUILD_GIT2})
 set(BUILD_CLI OFF)
 set(BUILD_TESTS OFF)
 set(BUILD_FUZZERS OFF)
+set(USE_BUNDLED_ZLIB "Bundled")
 
 set(LIBSSH2_FOUND 1)
 set(LIBSSH2_INCLUDE_DIRS ${CMAKE_SOURCE_DIR}/libssh2/include)
@@ -72,7 +75,7 @@ set(LIBSSH2_LDFLAGS "")
 
 set(REGEX_BACKEND "builtin")
 
-# set(BUILD_SHARED_LIBS OFF)
+set(BUILD_SHARED_LIBS OFF)
 
 add_library(libssh2
         STATIC
@@ -98,7 +101,7 @@ else()
 
 if (DEFINED ENV{BUILD_SSL})
 add_subdirectory(./openssl)
-target_link_libraries(api PRIVATE ssl crypto)
+target_link_libraries(api PRIVATE crypto ssl)
 endif()
 
 if (DEFINED ENV{BUILD_SSH2} OR DEFINED ENV{BUILD_GIT2})
@@ -135,7 +138,7 @@ set(BUILD_TESTING OFF)
 set(BUILD_EXAMPLES OFF)
 
 add_subdirectory(./libssh2)
-target_link_libraries(api PRIVATE ssl crypto libssh2)
+target_link_libraries(api PRIVATE crypto ssl libssh2)
 endif()
 
 
@@ -144,6 +147,7 @@ if (DEFINED ENV{BUILD_GIT2})
 set(BUILD_CLI OFF)
 set(BUILD_TESTS OFF)
 set(BUILD_FUZZERS OFF)
+set(USE_BUNDLED_ZLIB "Bundled")
 
 set(LIBSSH2_FOUND 1)
 set(LIBSSH2_INCLUDE_DIRS ${CMAKE_SOURCE_DIR}/libssh2/include)
@@ -151,7 +155,7 @@ set(LIBSSH2_LDFLAGS "")
 
 set(REGEX_BACKEND "builtin")
 
-# set(BUILD_SHARED_LIBS OFF)
+set(BUILD_SHARED_LIBS OFF)
 
 add_library(libssh2
         STATIC
