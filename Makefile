@@ -97,6 +97,7 @@ build-ssl-linux:
 	cp -rf build/linux/x64/release/libs/openssl/include precompiled/linux/openssl
 	cp -rf build/linux/x64/release/libs/openssl/crypto/*.a precompiled/linux/openssl/crypto
 	cp -rf build/linux/x64/release/libs/openssl/ssl/*.a precompiled/linux/openssl/ssl
+	touch libs/CMakeLists.txt
 
 build-ssh2-linux:
 	mkdir -p precompiled/linux/libssh2
