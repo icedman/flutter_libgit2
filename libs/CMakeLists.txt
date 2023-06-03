@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.18)
 project(api LANGUAGES CXX C)
 
 string(APPEND CMAKE_CXX_FLAGS " -std=gnu++11")
@@ -87,6 +87,9 @@ set_target_properties(libssh2
 
 set(LIBSSH2_LIBRARIES ${CMAKE_SOURCE_DIR}/../precompiled/android/${ANDROID_ABI}/libssh2/libssh2.a)
 
+set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
+set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
+set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 add_subdirectory(./libgit2)
 
 endif()

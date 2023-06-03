@@ -7,11 +7,16 @@
 #include <cstring>
 #include <ctype.h>
 
+// extern "C" {
+// #include "git2.h"
+// }
+
 static char buffer[1024];
 
 EXPORT
 int add(int a, int b)
 {
+    // git_error_last();
     return a + b;
 }
 
